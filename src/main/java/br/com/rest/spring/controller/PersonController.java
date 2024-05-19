@@ -4,6 +4,7 @@ import br.com.rest.spring.model.Person;
 import br.com.rest.spring.service.PersonService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,6 +28,11 @@ public class PersonController {
     @GetMapping("/{personId}")
     public ResponseEntity<Person> findById(Long personId) {
         return ResponseEntity.ok(personService.findById(personId));
+    }
+
+    @PostMapping
+    public ResponseEntity<Person> save(Person person) {
+        return ResponseEntity.ok(personService.save(person));
     }
 
 

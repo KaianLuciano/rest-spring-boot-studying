@@ -26,4 +26,9 @@ public class PersonService {
         log.info("Find all persons");
         return personRepository.findAll();
     }
+
+    public Person save(Person person) {
+        log.info("Save person");
+        return personRepository.save(person);
+    }
 }
