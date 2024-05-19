@@ -35,10 +35,10 @@ public class PersonService {
     public Person update(Long id, Person person) {
         log.info("Update person");
         Person personToUpdate = personRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Person not found"));
-        personToUpdate.setAddress("Address");
-        personToUpdate.setGender("Woman");
-        personToUpdate.setFirstName("Lucy");
-        personToUpdate.setLastName("Smith");
+        personToUpdate.setAddress(person.getAddress());
+        personToUpdate.setGender(person.getGender());
+        personToUpdate.setFirstName(person.getFirstName());
+        personToUpdate.setLastName(person.getLastName());
         return personRepository.save(personToUpdate);
     }
 }
