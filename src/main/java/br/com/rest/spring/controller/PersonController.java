@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/person")
 public class PersonController {
@@ -16,8 +18,16 @@ public class PersonController {
         this.personService = personService;
     }
 
+
+    @GetMapping
+    public ResponseEntity<List<Person>> findAll() {
+        return ResponseEntity.ok(personService.findAll());
+    }
+
     @GetMapping("/{personId}")
     public ResponseEntity<Person> findById(Long personId) {
         return ResponseEntity.ok(personService.findById(personId));
     }
+
+
 }
