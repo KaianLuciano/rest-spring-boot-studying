@@ -31,4 +31,14 @@ public class PersonService {
         log.info("Save person");
         return personRepository.save(person);
     }
+
+    public Person update(Long id, Person person) {
+        log.info("Update person");
+        Person personToUpdate = personRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Person not found"));
+        personToUpdate.setAddress("Address");
+        personToUpdate.setGender("Woman");
+        personToUpdate.setFirstName("Lucy");
+        personToUpdate.setLastName("Smith");
+        return personRepository.save(personToUpdate);
+    }
 }

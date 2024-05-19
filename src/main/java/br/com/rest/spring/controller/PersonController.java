@@ -3,10 +3,7 @@ package br.com.rest.spring.controller;
 import br.com.rest.spring.model.Person;
 import br.com.rest.spring.service.PersonService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,6 +30,11 @@ public class PersonController {
     @PostMapping
     public ResponseEntity<Person> save(Person person) {
         return ResponseEntity.ok(personService.save(person));
+    }
+
+    @PutMapping("/{personId}")
+    public ResponseEntity<Person> update(Long personId, Person person) {
+        return ResponseEntity.ok(personService.update(personId, person));
     }
 
 
