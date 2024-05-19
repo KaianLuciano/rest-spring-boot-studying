@@ -41,4 +41,9 @@ public class PersonService {
         personToUpdate.setLastName(person.getLastName());
         return personRepository.save(personToUpdate);
     }
+
+    public void delete(Long id) {
+        log.info("Delete person");
+        personRepository.deleteById(id);
+    }
 }

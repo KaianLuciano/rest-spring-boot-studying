@@ -37,5 +37,11 @@ public class PersonController {
         return ResponseEntity.ok(personService.update(personId, person));
     }
 
+    @DeleteMapping("/{personId}")
+    public ResponseEntity<Void> delete(Long personId) {
+        personService.delete(personId);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }
