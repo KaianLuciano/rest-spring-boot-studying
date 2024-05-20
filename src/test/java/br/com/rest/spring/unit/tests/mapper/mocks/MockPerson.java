@@ -24,4 +24,12 @@ public class MockPerson {
         return persons;
     }
 
+    public List<PersonVO> mockVOList() {
+        List<PersonVO> persons = new ArrayList<>();
+        for (int i = 0; i < 14; i++) {
+            persons.add(mockVO(i));
+        }
+        return persons;
+    }
+
 }
