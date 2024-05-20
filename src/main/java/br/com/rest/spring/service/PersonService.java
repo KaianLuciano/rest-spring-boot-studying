@@ -1,6 +1,7 @@
 package br.com.rest.spring.service;
 
 import br.com.rest.spring.PersonRepository;
+import br.com.rest.spring.data.vo.v1.PersonVO;
 import br.com.rest.spring.model.Person;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,24 +18,24 @@ public class PersonService {
         this.personRepository = personRepository;
     }
 
-    public Person findById(Long id) {
+    public PersonVO findById(Long id) {
         log.info("Find person");
         return personRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Person not found"));
     }
 
-    public List<Person> findAll() {
+    public List<PersonVO> findAll() {
         log.info("Find all persons");
         return personRepository.findAll();
     }
 
-    public Person save(Person person) {
+    public PersonVO save(PersonVO person) {
         log.info("Save person");
         return personRepository.save(person);
     }
 
-    public Person update(Long id, Person person) {
+    public PersonVO update(Long id, PersonVO person) {
         log.info("Update person");
-        Person personToUpdate = personRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Person not found"));
+        PersonVO personToUpdate = personRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Person not found"));
         personToUpdate.setAddress(person.getAddress());
         personToUpdate.setGender(person.getGender());
         personToUpdate.setFirstName(person.getFirstName());
