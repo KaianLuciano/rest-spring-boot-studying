@@ -2,7 +2,9 @@ package br.com.rest.spring.service;
 
 import br.com.rest.spring.PersonRepository;
 import br.com.rest.spring.data.vo.v1.PersonVO;
+import br.com.rest.spring.mapper.DozerMapper;
 import br.com.rest.spring.model.Person;
+import com.github.dozermapper.core.DozerConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -20,27 +22,29 @@ public class PersonService {
 
     public PersonVO findById(Long id) {
         log.info("Find person");
-        return personRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Person not found"));
+        return DozerMapper.parseObject(personRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Person not found")), PersonVO.class);
     }
 
     public List<PersonVO> findAll() {
         log.info("Find all persons");
-        return personRepository.findAll();
+        return DozerMapper.parseListObjects(personRepository.findAll(), PersonVO.class);
     }
 
     public PersonVO save(PersonVO person) {
         log.info("Save person");
-        return personRepository.save(person);
+        return DozerMapper.parseObject(personRepository.save(DozerMapper.parseObject(person, Person.class)), PersonVO.class);
     }
 
     public PersonVO update(Long id, PersonVO person) {
         log.info("Update person");
-        PersonVO personToUpdate = personRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Person not found"));
+        PersonVO personToUpdate = DozerMapper.parseObject(personRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Person not found")), PersonVO.class);
         personToUpdate.setAddress(person.getAddress());
         personToUpdate.setGender(person.getGender());
         personToUpdate.setFirstName(person.getFirstName());
         personToUpdate.setLastName(person.getLastName());
-        return personRepository.save(personToUpdate);
+        return DozerMapper.parseObject(personRepository.save(DozerMapper.parseObject(person, Person.class)), PersonVO.class);
     }
 
     public void delete(Long id) {

@@ -1,5 +1,6 @@
 package br.com.rest.spring.controller;
 
+import br.com.rest.spring.data.vo.v1.PersonVO;
 import br.com.rest.spring.model.Person;
 import br.com.rest.spring.service.PersonService;
 import org.springframework.http.ResponseEntity;
@@ -18,22 +19,22 @@ public class PersonController {
 
 
     @GetMapping
-    public ResponseEntity<List<Person>> findAll() {
+    public ResponseEntity<List<PersonVO>> findAll() {
         return ResponseEntity.ok(personService.findAll());
     }
 
     @GetMapping("/{personId}")
-    public ResponseEntity<Person> findById(Long personId) {
+    public ResponseEntity<PersonVO> findById(Long personId) {
         return ResponseEntity.ok(personService.findById(personId));
     }
 
     @PostMapping
-    public ResponseEntity<Person> save(Person person) {
+    public ResponseEntity<PersonVO> save(PersonVO person) {
         return ResponseEntity.ok(personService.save(person));
     }
 
     @PutMapping("/{personId}")
-    public ResponseEntity<Person> update(Long personId, Person person) {
+    public ResponseEntity<PersonVO> update(Long personId, PersonVO person) {
         return ResponseEntity.ok(personService.update(personId, person));
     }
 
