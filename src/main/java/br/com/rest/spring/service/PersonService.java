@@ -3,6 +3,7 @@ package br.com.rest.spring.service;
 import br.com.rest.spring.data.vo.v1.PersonVO;
 import br.com.rest.spring.data.vo.v2.PersonVOV2;
 import br.com.rest.spring.mapper.DozerMapper;
+import br.com.rest.spring.mapper.PersonMapper;
 import br.com.rest.spring.model.Person;
 import br.com.rest.spring.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,7 @@ import java.util.NoSuchElementException;
 @Service
 public class PersonService {
     private final PersonRepository personRepository;
+    private PersonMapper personMapper = new PersonMapper();
 
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
@@ -38,7 +40,8 @@ public class PersonService {
 
     public PersonVOV2 saveV2(PersonVOV2 person) {
         log.info("Save person");
-        return DozerMapper.parseObject(personRepository.save(DozerMapper.parseObject(person, Person.class)), PersonVOV2.class);
+        var entity = personMapper.convertVoTOEntity(person);
+        return personMapper.convertEntityToVo(personRepository.save(entity));
     }
 
     public PersonVO update(Long id, PersonVO person) {
