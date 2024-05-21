@@ -1,4 +1,4 @@
-package br.com.rest.spring.mapper;
+package br.com.rest.spring.mapper.custom;
 
 import br.com.rest.spring.data.vo.v2.PersonVOV2;
 import br.com.rest.spring.model.Person;

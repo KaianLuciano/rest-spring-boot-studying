@@ -3,7 +3,7 @@ package br.com.rest.spring.service;
 import br.com.rest.spring.data.vo.v1.PersonVO;
 import br.com.rest.spring.data.vo.v2.PersonVOV2;
 import br.com.rest.spring.mapper.DozerMapper;
-import br.com.rest.spring.mapper.PersonMapper;
+import br.com.rest.spring.mapper.custom.PersonMapper;
 import br.com.rest.spring.model.Person;
 import br.com.rest.spring.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
