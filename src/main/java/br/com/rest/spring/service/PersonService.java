@@ -2,10 +2,9 @@ package br.com.rest.spring.service;
 
 import br.com.rest.spring.PersonRepository;
 import br.com.rest.spring.data.vo.v1.PersonVO;
-import br.com.rest.spring.mapper.DozerMapper;
 import br.com.rest.spring.model.Person;
-import com.github.dozermapper.core.DozerConverter;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +14,7 @@ import java.util.NoSuchElementException;
 @Service
 public class PersonService {
     private final PersonRepository personRepository;
+    private final ModelMapper modelMapper = new ModelMapper();
 
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
@@ -22,29 +22,29 @@ public class PersonService {
 
     public PersonVO findById(Long id) {
         log.info("Find person");
-        return DozerMapper.parseObject(personRepository.findById(id)
+        return modelMapper.map(personRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Person not found")), PersonVO.class);
     }
 
     public List<PersonVO> findAll() {
         log.info("Find all persons");
-        return DozerMapper.parseListObjects(personRepository.findAll(), PersonVO.class);
+        return personRepository.findAll().stream().map(person -> modelMapper.map(person, PersonVO.class)).toList();
     }
 
     public PersonVO save(PersonVO person) {
         log.info("Save person");
-        return DozerMapper.parseObject(personRepository.save(DozerMapper.parseObject(person, Person.class)), PersonVO.class);
+        return modelMapper.map(personRepository.save(modelMapper.map(person, Person.class)), PersonVO.class);
     }
 
     public PersonVO update(Long id, PersonVO person) {
         log.info("Update person");
-        PersonVO personToUpdate = DozerMapper.parseObject(personRepository.findById(id)
+        PersonVO personToUpdate = modelMapper.map(personRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Person not found")), PersonVO.class);
         personToUpdate.setAddress(person.getAddress());
         personToUpdate.setGender(person.getGender());
         personToUpdate.setFirstName(person.getFirstName());
         personToUpdate.setLastName(person.getLastName());
-        return DozerMapper.parseObject(personRepository.save(DozerMapper.parseObject(person, Person.class)), PersonVO.class);
+        return modelMapper.map(personRepository.save(modelMapper.map(person, Person.class)), PersonVO.class);
     }
 
     public void delete(Long id) {
