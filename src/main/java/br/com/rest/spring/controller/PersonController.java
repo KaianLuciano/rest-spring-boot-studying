@@ -1,7 +1,7 @@
 package br.com.rest.spring.controller;
 
 import br.com.rest.spring.data.vo.v1.PersonVO;
-import br.com.rest.spring.model.Person;
+import br.com.rest.spring.data.vo.v2.PersonVOV2;
 import br.com.rest.spring.service.PersonService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +31,11 @@ public class PersonController {
     @PostMapping
     public ResponseEntity<PersonVO> save(PersonVO person) {
         return ResponseEntity.ok(personService.save(person));
+    }
+
+    @PostMapping("/v2")
+    public ResponseEntity<PersonVOV2> saveV2(PersonVOV2 person) {
+        return ResponseEntity.ok(personService.saveV2(person));
     }
 
     @PutMapping("/{personId}")
