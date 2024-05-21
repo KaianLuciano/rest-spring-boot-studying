@@ -1,20 +1,19 @@
 package br.com.rest.spring.unit.tests.mapper;
 
 import br.com.rest.spring.data.vo.v1.PersonVO;
+import br.com.rest.spring.mapper.DozerMapper;
 import br.com.rest.spring.model.Person;
 import br.com.rest.spring.unit.tests.mapper.mocks.MockPerson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.modelmapper.ModelMapper;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ModelMapperConverterTest {
+public class DozerConverterTest {
 
     MockPerson inputObject;
-    private final ModelMapper modelMapper = new ModelMapper();
 
     @BeforeEach
     public void setUp() {
@@ -23,7 +22,7 @@ public class ModelMapperConverterTest {
 
     @Test
     public void parseEntityToVOTest() {
-        PersonVO output = modelMapper.map(inputObject.mockEntity(), PersonVO.class);
+        PersonVO output = DozerMapper.parseObject(inputObject.mockEntity(), PersonVO.class);
         assertEquals(Long.valueOf(0L), output.getPersonId());
         assertEquals("First Name Test0", output.getFirstName());
         assertEquals("Last Name Test0", output.getLastName());
@@ -33,7 +32,7 @@ public class ModelMapperConverterTest {
 
     @Test
     public void parseEntityListToVOListTest() {
-        List<PersonVO> outputList = inputObject.mockEntityList().stream().map(entity -> modelMapper.map(entity, PersonVO.class)).toList();
+        List<PersonVO> outputList = DozerMapper.parseListObjects(inputObject.mockEntityList(), PersonVO.class);
         PersonVO outputZero = outputList.get(0);
 
         assertEquals(Long.valueOf(0L), outputZero.getPersonId());
@@ -61,7 +60,7 @@ public class ModelMapperConverterTest {
 
     @Test
     public void parseVOToEntityTest() {
-        Person output = modelMapper.map(inputObject.mockVO(), Person.class);
+        Person output = DozerMapper.parseObject(inputObject.mockVO(), Person.class);
         assertEquals(Long.valueOf(0L), output.getPersonId());
         assertEquals("First Name Test0", output.getFirstName());
         assertEquals("Last Name Test0", output.getLastName());
@@ -71,7 +70,7 @@ public class ModelMapperConverterTest {
 
     @Test
     public void parserVOListToEntityListTest() {
-        List<Person> outputList = inputObject.mockVOList().stream().map(vo -> modelMapper.map(vo, Person.class)).toList();
+        List<Person> outputList = DozerMapper.parseListObjects(inputObject.mockVOList(), Person.class);
         Person outputZero = outputList.get(0);
 
         assertEquals(Long.valueOf(0L), outputZero.getPersonId());
