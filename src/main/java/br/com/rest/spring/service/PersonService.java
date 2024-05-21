@@ -1,8 +1,8 @@
 package br.com.rest.spring.service;
 
-import br.com.rest.spring.PersonRepository;
 import br.com.rest.spring.data.vo.v1.PersonVO;
 import br.com.rest.spring.model.Person;
+import br.com.rest.spring.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
