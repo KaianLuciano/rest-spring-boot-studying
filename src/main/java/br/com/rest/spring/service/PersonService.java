@@ -1,6 +1,7 @@
 package br.com.rest.spring.service;
 
 import br.com.rest.spring.data.vo.v1.PersonVO;
+import br.com.rest.spring.data.vo.v2.PersonVOV2;
 import br.com.rest.spring.model.Person;
 import br.com.rest.spring.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,11 @@ public class PersonService {
     public PersonVO save(PersonVO person) {
         log.info("Save person");
         return modelMapper.map(personRepository.save(modelMapper.map(person, Person.class)), PersonVO.class);
+    }
+
+    public PersonVOV2 saveV2(PersonVOV2 person) {
+        log.info("Save person");
+        return modelMapper.map(personRepository.save(modelMapper.map(person, Person.class)), PersonVOV2.class);
     }
 
     public PersonVO update(Long id, PersonVO person) {
