@@ -1,9 +1,15 @@
 package br.com.rest.spring.model;
 
+import jakarta.persistence.*;
+
 import java.util.Objects;
 
+@Entity
+@Table(name = "tb_person")
 public class Person {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long personId;
     String firstName;
     private String lastName;
