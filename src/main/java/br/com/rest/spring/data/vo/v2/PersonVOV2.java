@@ -2,13 +2,14 @@ package br.com.rest.spring.data.vo.v2;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.util.Date;
 import java.util.Objects;
 
 @Getter
 @Setter
-public class PersonVOV2 {
+public class PersonVOV2 extends RepresentationModel<PersonVOV2> {
 
     private Long personId;
     private String firstName;
