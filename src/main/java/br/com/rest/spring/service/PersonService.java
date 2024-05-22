@@ -35,7 +35,8 @@ public class PersonService {
 
     public PersonVO save(PersonVO person) {
         log.info("Save person");
-        return DozerMapper.parseObject(personRepository.save(DozerMapper.parseObject(person, Person.class)), PersonVO.class);
+        Person personEntity = DozerMapper.parseObject(person, Person.class);
+        return DozerMapper.parseObject(personRepository.save(personEntity), PersonVO.class);
     }
 
     public PersonVOV2 saveV2(PersonVOV2 person) {
