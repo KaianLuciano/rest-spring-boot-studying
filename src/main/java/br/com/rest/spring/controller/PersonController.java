@@ -2,7 +2,7 @@ package br.com.rest.spring.controller;
 
 import br.com.rest.spring.data.vo.v1.PersonVO;
 import br.com.rest.spring.data.vo.v2.PersonVOV2;
-import br.com.rest.spring.service.PersonServiceImpl;
+import br.com.rest.spring.service.impl.PersonServiceImpl;
 import br.com.rest.spring.util.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

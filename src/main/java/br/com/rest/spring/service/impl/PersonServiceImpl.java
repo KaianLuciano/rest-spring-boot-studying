@@ -1,4 +1,4 @@
-package br.com.rest.spring.service;
+package br.com.rest.spring.service.impl;
 
 import br.com.rest.spring.controller.PersonController;
 import br.com.rest.spring.data.vo.v1.PersonVO;
@@ -7,6 +7,7 @@ import br.com.rest.spring.mapper.DozerMapper;
 import br.com.rest.spring.mapper.custom.PersonMapper;
 import br.com.rest.spring.model.Person;
 import br.com.rest.spring.repository.PersonRepository;
+import br.com.rest.spring.service.PersonService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Slf4j
 @Service
-public class PersonServiceImpl {
+public class PersonServiceImpl implements PersonService {
     private final PersonRepository personRepository;
     private final PersonMapper personMapper = new PersonMapper();
 
