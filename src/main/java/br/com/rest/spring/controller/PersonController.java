@@ -3,6 +3,7 @@ package br.com.rest.spring.controller;
 import br.com.rest.spring.data.vo.v1.PersonVO;
 import br.com.rest.spring.data.vo.v2.PersonVOV2;
 import br.com.rest.spring.service.PersonService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,32 +19,43 @@ public class PersonController {
     }
 
 
-    @GetMapping
+    @GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<List<PersonVO>> findAll() {
         return ResponseEntity.ok(personService.findAll());
     }
 
-    @GetMapping("/{personId}")
+    @GetMapping(value = "/{personId}",
+            produces = { MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<PersonVO> findById(Long personId) {
         return ResponseEntity.ok(personService.findById(personId));
     }
 
-    @PostMapping
+    @PostMapping(
+            consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
+            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<PersonVO> save(PersonVO person) {
         return ResponseEntity.ok(personService.save(person));
     }
 
-    @PostMapping("/v2")
+    @PostMapping(value = "/v2",
+            consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
+            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<PersonVOV2> saveV2(PersonVOV2 person) {
         return ResponseEntity.ok(personService.saveV2(person));
     }
 
-    @PutMapping("/{personId}")
+    @PutMapping(value = "/{personId}",
+            consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
+            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<PersonVO> update(Long personId, PersonVO person) {
         return ResponseEntity.ok(personService.update(personId, person));
     }
 
-    @DeleteMapping("/{personId}")
+    @DeleteMapping(value = "/{personId}",
+            consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
+            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<Void> delete(Long personId) {
         personService.delete(personId);
         return ResponseEntity.noContent().build();
