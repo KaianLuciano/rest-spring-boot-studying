@@ -18,11 +18,11 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Slf4j
 @Service
-public class PersonService {
+public class PersonServiceImpl {
     private final PersonRepository personRepository;
     private final PersonMapper personMapper = new PersonMapper();
 
-    public PersonService(PersonRepository personRepository) {
+    public PersonServiceImpl(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
 
