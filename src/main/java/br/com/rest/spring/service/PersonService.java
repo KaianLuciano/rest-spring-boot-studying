@@ -16,7 +16,7 @@ import java.util.NoSuchElementException;
 @Service
 public class PersonService {
     private final PersonRepository personRepository;
-    private PersonMapper personMapper = new PersonMapper();
+    private final PersonMapper personMapper = new PersonMapper();
 
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;

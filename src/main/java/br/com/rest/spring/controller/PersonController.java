@@ -33,28 +33,28 @@ public class PersonController {
     @PostMapping(
             consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML },
             produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML })
-    public ResponseEntity<PersonVO> save(PersonVO person) {
+    public ResponseEntity<PersonVO> save(@RequestBody PersonVO person) {
         return ResponseEntity.ok(personService.save(person));
     }
 
     @PostMapping(value = "/v2",
             consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML },
             produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML })
-    public ResponseEntity<PersonVOV2> saveV2(PersonVOV2 person) {
+    public ResponseEntity<PersonVOV2> saveV2(@RequestBody PersonVOV2 person) {
         return ResponseEntity.ok(personService.saveV2(person));
     }
 
     @PutMapping(value = "/{personId}",
             consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML },
             produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML })
-    public ResponseEntity<PersonVO> update(Long personId, PersonVO person) {
+    public ResponseEntity<PersonVO> update(@PathVariable Long personId, @RequestBody PersonVO person) {
         return ResponseEntity.ok(personService.update(personId, person));
     }
 
     @DeleteMapping(value = "/{personId}",
             consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML },
             produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML })
-    public ResponseEntity<Void> delete(Long personId) {
+    public ResponseEntity<Void> delete(@PathVariable Long personId) {
         personService.delete(personId);
         return ResponseEntity.noContent().build();
     }
