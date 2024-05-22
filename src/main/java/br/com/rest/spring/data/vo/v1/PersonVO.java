@@ -1,8 +1,10 @@
 package br.com.rest.spring.data.vo.v1;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import java.util.Objects;
 
-public class PersonVO {
+public class PersonVO extends RepresentationModel<PersonVO> {
 
     private Long personId;
     private String firstName;
