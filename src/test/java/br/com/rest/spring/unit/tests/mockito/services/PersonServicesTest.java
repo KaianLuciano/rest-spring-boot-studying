@@ -88,5 +88,32 @@ class PersonServicesTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
+    @Test
+    void testUpdate() {
+        Person entity = input.mockEntity(1);
+
+        Person persisted = entity;
+        persisted.setPersonId(1L);
+
+        PersonVO vo = input.mockVO(1);
+        vo.setPersonId(1L);
+
+
+        when(personRepository.findById(1L)).thenReturn(Optional.of(entity));
+        when(personRepository.save(entity)).thenReturn(persisted);
+
+        var result = personServiceImpl.update(1L, vo);
+
+        assertNotNull(result);
+        assertNotNull(result.getPersonId());
+        assertNotNull(result.getLinks());
+
+        assertTrue(result.toString().contains("links: [</api/person/v1/1>;rel=\"self\"]"));
+        assertEquals("Addres Test1", result.getAddress());
+        assertEquals("First Name Test1", result.getFirstName());
+        assertEquals("Last Name Test1", result.getLastName());
+        assertEquals("Female", result.getGender());
+    }
+
 
 }
