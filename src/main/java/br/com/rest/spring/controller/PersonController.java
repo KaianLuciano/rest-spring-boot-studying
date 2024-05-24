@@ -48,6 +48,16 @@ public class PersonController {
         return ResponseEntity.ok(personService.findAll());
     }
 
+    @Operation(summary = "Finds a Person recorded in the database", description = "Finds a Person recorded in the database"
+            , tags = { "People" }, responses = {
+            @ApiResponse(responseCode = "200", description = "People found",
+                    content = @Content(schema = @Schema(implementation = PersonVO.class))),
+            @ApiResponse(responseCode = "204", description = "No Content", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error" , content = @Content)
+    })
     @GetMapping(value = "/{personId}",
             produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML })
     public ResponseEntity<PersonVO> findById(@PathVariable Long personId) {
