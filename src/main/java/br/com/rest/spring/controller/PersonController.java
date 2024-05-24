@@ -98,10 +98,11 @@ public class PersonController {
     @PutMapping(value = "/{personId}",
             consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML },
             produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML })
-    @Operation(summary = "Save a new Person",
-            description = "Save a new Person by passing the JSON, XML or YAML object in the request body."
+    @Operation(summary = "Update a Person represented by ID",
+            description = "Update a Person represented by ID by passing the JSON," +
+                    " XML or YAML object in the request body"
             , tags = { "People" }, responses = {
-            @ApiResponse(responseCode = "200", description = "People found",
+            @ApiResponse(responseCode = "200", description = "Person Updated with success",
                     content = @Content(schema = @Schema(implementation = PersonVO.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
             @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
