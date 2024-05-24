@@ -1,9 +1,11 @@
 package br.com.rest.spring.data.vo.v1;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class BookVO {
+public class BookVO extends RepresentationModel<PersonVO> {
     private Long bookId;
     private String author;
     private LocalDate launchDate;
