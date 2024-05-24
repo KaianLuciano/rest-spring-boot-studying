@@ -48,6 +48,8 @@ public class PersonController {
         return ResponseEntity.ok(personService.findAll());
     }
 
+    @GetMapping(value = "/{personId}",
+            produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML })
     @Operation(summary = "Finds a Person recorded in the database", description = "Finds a Person recorded in the database"
             , tags = { "People" }, responses = {
             @ApiResponse(responseCode = "200", description = "People found",
@@ -58,15 +60,21 @@ public class PersonController {
             @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal Server Error" , content = @Content)
     })
-    @GetMapping(value = "/{personId}",
-            produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML })
     public ResponseEntity<PersonVO> findById(@PathVariable Long personId) {
         return ResponseEntity.ok(personService.findById(personId));
     }
 
-    @PostMapping(
-            consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML },
+    @PostMapping(consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML },
             produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML })
+    @Operation(summary = "Save a new Person",
+            description = "Save a new Person by passing the JSON, XML or YAML object in the request body."
+            , tags = { "People" }, responses = {
+            @ApiResponse(responseCode = "200", description = "People found",
+                    content = @Content(schema = @Schema(implementation = PersonVO.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error" , content = @Content)
+    })
     public ResponseEntity<PersonVO> save(@RequestBody @NotNull PersonVO person) {
         return ResponseEntity.ok(personService.save(person));
     }
