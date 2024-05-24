@@ -84,7 +84,7 @@ class PersonServicesTest {
             personServiceImpl.save(null);
         });
 
-        String expectedMessage = "It is not allowed to persist a null object!";
+        String expectedMessage = "It not possible to process the request because the required object is null.";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -123,7 +123,7 @@ class PersonServicesTest {
             personServiceImpl.update(null, null);
         });
 
-        String expectedMessage = "It is not allowed to persist a null object!";
+        String expectedMessage = "It not possible to process the request because the required object is null.";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));

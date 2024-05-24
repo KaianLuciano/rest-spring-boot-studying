@@ -50,6 +50,8 @@ public class PersonServiceImpl implements PersonService {
     @Override
     @Transactional
     public PersonVO save(PersonVO person) {
+        if(person == null)
+            throw new Exceptions.RequiredObjectIsNullException();
         log.info("Save person");
         Person personEntity = DozerMapper.parseObject(person, Person.class);
         PersonVO personVO =  DozerMapper.parseObject(personRepository.save(personEntity), PersonVO.class);
@@ -60,6 +62,8 @@ public class PersonServiceImpl implements PersonService {
     @Override
     @Transactional
     public PersonVOV2 saveV2(PersonVOV2 person) {
+        if(person == null)
+            throw new Exceptions.RequiredObjectIsNullException();
         log.info("Save person");
         Person personEntity = personMapper.convertVoTOEntity(person);
         PersonVOV2 personVOV2 =  personMapper.convertEntityToVo(personRepository.save(personEntity));
@@ -70,6 +74,8 @@ public class PersonServiceImpl implements PersonService {
     @Override
     @Transactional
     public PersonVO update(Long id, PersonVO person) {
+        if(person == null)
+            throw new Exceptions.RequiredObjectIsNullException();
         log.info("Update person");
         PersonVO personToUpdate = DozerMapper.parseObject(personRepository.findById(id)
                 .orElseThrow(() -> new Exceptions.ResourceNotFoundException("Person not found")), PersonVO.class);
