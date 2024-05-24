@@ -127,5 +127,15 @@ class PersonServicesTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
+    @Test
+    void testDelete() {
+        Person entity = input.mockEntity(1);
+        entity.setPersonId(1L);
+
+        when(personRepository.findById(1L)).thenReturn(Optional.of(entity));
+
+        personServiceImpl.delete(1L);
+    }
+
 
 }
