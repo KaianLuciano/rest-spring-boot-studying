@@ -30,7 +30,8 @@ public class PersonController {
 
     @GetMapping(produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML })
     @Operation(summary = "Find all people recorded in the database", description = "Find all people recorded in the database"
-            , tags = { "People" }, responses = {
+            , tags = { "People" }
+            , responses = {
             @ApiResponse(responseCode = "200", description = "People found", content = {
                     @Content(mediaType = MediaType.APPLICATION_JSON,
                             array = @ArraySchema(schema = @Schema(implementation = PersonVO.class))),
@@ -51,7 +52,8 @@ public class PersonController {
     @GetMapping(value = "/{personId}",
             produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML })
     @Operation(summary = "Finds a Person recorded in the database", description = "Finds a Person recorded in the database"
-            , tags = { "People" }, responses = {
+            , tags = { "People" }
+            , responses = {
             @ApiResponse(responseCode = "200", description = "People found",
                     content = @Content(schema = @Schema(implementation = PersonVO.class))),
             @ApiResponse(responseCode = "204", description = "No Content", content = @Content),
@@ -68,7 +70,8 @@ public class PersonController {
             produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML })
     @Operation(summary = "Save a new Person",
             description = "Save a new Person by passing the JSON, XML or YAML object in the request body."
-            , tags = { "People" }, responses = {
+            , tags = { "People" }
+            , responses = {
             @ApiResponse(responseCode = "200", description = "Person Saved with success",
                     content = @Content(schema = @Schema(implementation = PersonVO.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
@@ -84,7 +87,8 @@ public class PersonController {
             produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML })
     @Operation(summary = "Save a new PersonV2",
             description = "Save a new PersonV2 by passing the JSON, XML or YAML object in the request body."
-            , tags = { "People" }, responses = {
+            , tags = { "People" }
+            , responses = {
             @ApiResponse(responseCode = "200", description = "Person Saved with success",
                     content = @Content(schema = @Schema(implementation = PersonVO.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
@@ -101,7 +105,8 @@ public class PersonController {
     @Operation(summary = "Update a Person represented by ID",
             description = "Update a Person represented by ID by passing the JSON," +
                     " XML or YAML object in the request body"
-            , tags = { "People" }, responses = {
+            , tags = { "People" }
+            , responses = {
             @ApiResponse(responseCode = "200", description = "Person Updated with success",
                     content = @Content(schema = @Schema(implementation = PersonVO.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
@@ -116,6 +121,17 @@ public class PersonController {
     @DeleteMapping(value = "/{personId}",
             consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML },
             produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML })
+    @Operation(summary = "Delete a Person represented by ID",
+            description = "Delete a Person represented by ID by passing the JSON," +
+                    " XML or YAML object in the request body"
+            , tags = { "People" }
+            , responses = {
+            @ApiResponse(responseCode = "204", description = "No Content", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error" , content = @Content)
+    })
     public ResponseEntity<Void> delete(@PathVariable Long personId) {
         personService.delete(personId);
         return ResponseEntity.noContent().build();
