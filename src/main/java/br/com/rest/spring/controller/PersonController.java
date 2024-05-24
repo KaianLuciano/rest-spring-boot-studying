@@ -5,6 +5,7 @@ import br.com.rest.spring.data.vo.v2.PersonVOV2;
 import br.com.rest.spring.service.PersonService;
 import br.com.rest.spring.service.impl.PersonServiceImpl;
 import br.com.rest.spring.util.MediaType;
+import com.sun.istack.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,7 @@ public class PersonController {
     @PostMapping(
             consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML },
             produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML })
-    public ResponseEntity<PersonVO> save(@RequestBody PersonVO person) {
+    public ResponseEntity<PersonVO> save(@RequestBody @NotNull PersonVO person) {
         return ResponseEntity.ok(personService.save(person));
     }
 

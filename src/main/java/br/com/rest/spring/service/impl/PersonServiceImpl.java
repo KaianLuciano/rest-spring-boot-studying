@@ -3,6 +3,7 @@ package br.com.rest.spring.service.impl;
 import br.com.rest.spring.controller.PersonController;
 import br.com.rest.spring.data.vo.v1.PersonVO;
 import br.com.rest.spring.data.vo.v2.PersonVOV2;
+import br.com.rest.spring.exception.handler.exception.Exceptions;
 import br.com.rest.spring.mapper.DozerMapper;
 import br.com.rest.spring.mapper.custom.PersonMapper;
 import br.com.rest.spring.model.Person;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -33,7 +33,7 @@ public class PersonServiceImpl implements PersonService {
     public PersonVO findById(Long id) {
         log.info("Find person");
         Person person = personRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Person not found"));
+                .orElseThrow(() -> new Exceptions.ResourceNotFoundException("Person not found"));
         PersonVO personVO = DozerMapper.parseObject(person, PersonVO.class);
         personVO.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
         return personVO;
@@ -72,7 +72,7 @@ public class PersonServiceImpl implements PersonService {
     public PersonVO update(Long id, PersonVO person) {
         log.info("Update person");
         PersonVO personToUpdate = DozerMapper.parseObject(personRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Person not found")), PersonVO.class);
+                .orElseThrow(() -> new Exceptions.ResourceNotFoundException("Person not found")), PersonVO.class);
         personToUpdate.setAddress(person.getAddress());
         personToUpdate.setGender(person.getGender());
         personToUpdate.setFirstName(person.getFirstName());
@@ -86,7 +86,9 @@ public class PersonServiceImpl implements PersonService {
     @Transactional
     public void delete(Long id) {
         log.info("Delete person");
-        personRepository.deleteById(id);
+        PersonVO personToUpdate = DozerMapper.parseObject(personRepository.findById(id)
+                .orElseThrow(() -> new Exceptions.ResourceNotFoundException("Person not found")), PersonVO.class);
+        personRepository.delete(DozerMapper.parseObject(personToUpdate, Person.class));
     }
 }
 

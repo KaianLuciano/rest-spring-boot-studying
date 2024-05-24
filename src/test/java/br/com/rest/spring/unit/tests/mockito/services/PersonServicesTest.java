@@ -1,6 +1,7 @@
 package br.com.rest.spring.unit.tests.mockito.services;
 
 import br.com.rest.spring.data.vo.v1.PersonVO;
+import br.com.rest.spring.exception.handler.exception.Exceptions;
 import br.com.rest.spring.model.Person;
 import br.com.rest.spring.repository.PersonRepository;
 import br.com.rest.spring.service.impl.PersonServiceImpl;
@@ -79,7 +80,7 @@ class PersonServicesTest {
 
     @Test
     void testCreateWithNullPerson() {
-        Exception exception = assertThrows(RequiredObjectIsNullException.class, () -> {
+        Exception exception = assertThrows(Exceptions.RequiredObjectIsNullException.class, () -> {
             personServiceImpl.save(null);
         });
 
@@ -118,7 +119,7 @@ class PersonServicesTest {
 
     @Test
     void testUpdateWithNullPerson() {
-        Exception exception = assertThrows(RequiredObjectIsNullException.class, () -> {
+        Exception exception = assertThrows(Exceptions.RequiredObjectIsNullException.class, () -> {
             personServiceImpl.update(null, null);
         });
 
