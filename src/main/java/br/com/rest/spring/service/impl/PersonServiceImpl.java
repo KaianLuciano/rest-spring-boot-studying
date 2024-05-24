@@ -10,6 +10,7 @@ import br.com.rest.spring.repository.PersonRepository;
 import br.com.rest.spring.service.PersonService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -19,6 +20,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Slf4j
 @Service
+@Transactional(readOnly = true)
 public class PersonServiceImpl implements PersonService {
     private final PersonRepository personRepository;
     private final PersonMapper personMapper = new PersonMapper();
@@ -27,6 +29,7 @@ public class PersonServiceImpl implements PersonService {
         this.personRepository = personRepository;
     }
 
+    @Override
     public PersonVO findById(Long id) {
         log.info("Find person");
         Person person = personRepository.findById(id)
@@ -36,6 +39,7 @@ public class PersonServiceImpl implements PersonService {
         return personVO;
     }
 
+    @Override
     public List<PersonVO> findAll() {
         log.info("Find all persons");
         List<PersonVO> personVOS = DozerMapper.parseListObjects(personRepository.findAll(), PersonVO.class);
@@ -43,6 +47,8 @@ public class PersonServiceImpl implements PersonService {
         return personVOS;
     }
 
+    @Override
+    @Transactional
     public PersonVO save(PersonVO person) {
         log.info("Save person");
         Person personEntity = DozerMapper.parseObject(person, Person.class);
@@ -51,6 +57,8 @@ public class PersonServiceImpl implements PersonService {
         return personVO;
     }
 
+    @Override
+    @Transactional
     public PersonVOV2 saveV2(PersonVOV2 person) {
         log.info("Save person");
         Person personEntity = personMapper.convertVoTOEntity(person);
@@ -59,6 +67,8 @@ public class PersonServiceImpl implements PersonService {
         return personVOV2;
     }
 
+    @Override
+    @Transactional
     public PersonVO update(Long id, PersonVO person) {
         log.info("Update person");
         PersonVO personToUpdate = DozerMapper.parseObject(personRepository.findById(id)
@@ -72,8 +82,12 @@ public class PersonServiceImpl implements PersonService {
         return personVO;
     }
 
+    @Override
+    @Transactional
     public void delete(Long id) {
         log.info("Delete person");
         personRepository.deleteById(id);
     }
 }
+
+
