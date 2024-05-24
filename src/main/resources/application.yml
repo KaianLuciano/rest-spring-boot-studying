@@ -12,3 +12,7 @@ spring:
   sql:
     init:
       platform: postgres
+
+springdoc:
+  swagger-ui:
+    use-root-path: true
