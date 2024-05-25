@@ -1,5 +1,6 @@
 package br.com.rest.spring.unit.tests.mockito.services;
 
+import br.com.rest.spring.data.vo.v1.BookVO;
 import br.com.rest.spring.model.Book;
 import br.com.rest.spring.repository.BookRepository;
 import br.com.rest.spring.service.impl.BookServiceImpl;
@@ -47,4 +48,30 @@ public class BookServicesTest {
         assertEquals(200.0, result.getPrice());
         assertEquals("Title Test", result.getTitle());
     }
+
+    @Test
+    void testCreate() {
+        Book entity = input.mockEntity(1);
+        entity.setBookId(1L);
+
+        Book persisted = entity;
+        persisted.setBookId(1L);
+
+        BookVO vo = input.mockVO(1);
+        vo.setBookId(1L);
+
+        when(bookRepository.save(entity)).thenReturn(persisted);
+
+        var result = bookServiceImpl.save(vo);
+
+        assertNotNull(result);
+        assertNotNull(result.getBookId());
+        assertNotNull(result.getLinks());
+
+        assertTrue(result.toString().contains("links: [</api/books/v1/1>;rel=\"self\"]"));
+        assertEquals("Author Test1", result.getAuthor());
+        assertEquals(200.0, result.getPrice());
+        assertEquals("Title Test", result.getTitle());
+    }
+
 }
