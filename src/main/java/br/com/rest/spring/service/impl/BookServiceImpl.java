@@ -9,6 +9,7 @@ import br.com.rest.spring.repository.BookRepository;
 import br.com.rest.spring.service.BookService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -41,4 +42,18 @@ public class BookServiceImpl implements BookService {
         bookVO.add(linkTo(methodOn(BookController.class).findById(bookVO.getBookId())).withSelfRel());
         return bookVO;
     }
+
+    @Override
+    @Transactional
+    public BookVO save(BookVO book) {
+        if(book == null)
+            throw new Exceptions.RequiredObjectIsNullException();
+        log.info("Save book");
+        Book bookEntity = DozerMapper.parseObject(book, Book.class);
+        BookVO bookVO =  DozerMapper.parseObject(bookRepository.save(bookEntity), BookVO.class);
+        bookVO.add(linkTo(methodOn(BookController.class).findById(bookVO.getBookId())).withSelfRel());
+        return bookVO;
+    }
+
+
 }
