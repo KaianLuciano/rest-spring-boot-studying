@@ -87,4 +87,30 @@ public class BookServicesTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
+    @Test
+    void testUpdate() {
+        Book entity = input.mockEntity(1);
+
+        Book persisted = entity;
+        persisted.setBookId(1L);
+
+        BookVO vo = input.mockVO(1);
+        vo.setBookId(1L);
+
+
+        when(bookRepository.findById(1L)).thenReturn(Optional.of(entity));
+        when(bookRepository.save(entity)).thenReturn(persisted);
+
+        var result = bookServiceImpl.update(1L, vo);
+
+        assertNotNull(result);
+        assertNotNull(result.getBookId());
+        assertNotNull(result.getLinks());
+
+        assertTrue(result.toString().contains("links: [</api/books/v1/1>;rel=\"self\"]"));
+        assertEquals("Author Test1", result.getAuthor());
+        assertEquals(200.0, result.getPrice());
+        assertEquals("Title Test", result.getTitle());
+    }
+
 }
