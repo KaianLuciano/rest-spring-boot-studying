@@ -1,6 +1,7 @@
 package br.com.rest.spring.unit.tests.mockito.services;
 
 import br.com.rest.spring.data.vo.v1.BookVO;
+import br.com.rest.spring.exception.handler.exception.Exceptions;
 import br.com.rest.spring.model.Book;
 import br.com.rest.spring.repository.BookRepository;
 import br.com.rest.spring.service.impl.BookServiceImpl;
@@ -72,6 +73,18 @@ public class BookServicesTest {
         assertEquals("Author Test1", result.getAuthor());
         assertEquals(200.0, result.getPrice());
         assertEquals("Title Test", result.getTitle());
+    }
+
+    @Test
+    void testCreateWithNullBook() {
+        Exception exception = assertThrows(Exceptions.RequiredObjectIsNullException.class, () -> {
+            bookServiceImpl.save(null);
+        });
+
+        String expectedMessage = "It not possible to process the request because the required object is null.";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
 }
