@@ -125,4 +125,14 @@ public class BookServicesTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
+    @Test
+    void testDelete() {
+        Book entity = input.mockEntity(1);
+        entity.setBookId(1L);
+
+        when(bookRepository.findById(1L)).thenReturn(Optional.of(entity));
+
+        bookServiceImpl.delete(1L);
+    }
+
 }
