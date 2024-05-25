@@ -55,5 +55,21 @@ public class BookServiceImpl implements BookService {
         return bookVO;
     }
 
+    @Override
+    @Transactional
+    public BookVO update(Long bookId, BookVO book) {
+        if(book == null)
+            throw new Exceptions.RequiredObjectIsNullException();
+        log.info("Update book");
+        BookVO bookToUpdate = DozerMapper.parseObject(bookRepository.findById(bookId)
+                .orElseThrow(() -> new Exceptions.ResourceNotFoundException("Book not found")), BookVO.class);
+        bookToUpdate.setAuthor(book.getAuthor());
+        bookToUpdate.setLaunchDate(book.getLaunchDate());
+        bookToUpdate.setPrice(book.getPrice());
+        bookToUpdate.setTitle(book.getTitle());
+        BookVO bookVO =  DozerMapper.parseObject(bookRepository.save(DozerMapper.parseObject(book, Book.class)), BookVO.class);
+        bookVO.add(linkTo(methodOn(BookController.class).findById(bookVO.getBookId())).withSelfRel());
+        return bookVO;
+    }
 
 }

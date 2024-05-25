@@ -79,6 +79,23 @@ public class BookController {
         return ResponseEntity.ok(bookService.save(bookVO));
     }
 
-
+    @PutMapping(value = "/{bookId}",
+            consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML },
+            produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML })
+    @Operation(summary = "Update a Book represented by ID",
+            description = "Update a Book represented by ID by passing the JSON," +
+                    " XML or YAML object in the request body"
+            , tags = { "Book" }
+            , responses = {
+            @ApiResponse(responseCode = "200", description = "Book Updated with success",
+                    content = @Content(schema = @Schema(implementation = BookVO.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error" , content = @Content)
+    })
+    public ResponseEntity<BookVO> update(@PathVariable Long bookId, @RequestBody BookVO bookVO) {
+        return ResponseEntity.ok(bookService.update(bookId, bookVO));
+    }
 
 }
