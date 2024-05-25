@@ -113,4 +113,16 @@ public class BookServicesTest {
         assertEquals("Title Test", result.getTitle());
     }
 
+    @Test
+    void testUpdateWithNullBook() {
+        Exception exception = assertThrows(Exceptions.RequiredObjectIsNullException.class, () -> {
+            bookServiceImpl.update(null, null);
+        });
+
+        String expectedMessage = "It not possible to process the request because the required object is null.";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
 }
