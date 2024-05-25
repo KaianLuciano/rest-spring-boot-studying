@@ -49,7 +49,7 @@ public class BookController {
     @GetMapping(value = "/{bookId}",
             produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML })
     @Operation(summary = "Finds a Book recorded in the database", description = "Finds a Book recorded in the database"
-            , tags = { "People" }
+            , tags = { "Book" }
             , responses = {
             @ApiResponse(responseCode = "200", description = "Book found",
                     content = @Content(schema = @Schema(implementation = BookVO.class))),

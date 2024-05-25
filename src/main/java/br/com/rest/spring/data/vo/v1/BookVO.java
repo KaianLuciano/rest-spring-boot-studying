@@ -12,6 +12,9 @@ public class BookVO extends RepresentationModel<PersonVO> {
     private Double price;
     private String title;
 
+    public BookVO() {
+    }
+
     public BookVO(Long bookId, String author, LocalDate launchDate, Double price, String title) {
         this.bookId = bookId;
         this.author = author;
