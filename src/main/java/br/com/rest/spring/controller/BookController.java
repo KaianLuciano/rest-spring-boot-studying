@@ -98,4 +98,23 @@ public class BookController {
         return ResponseEntity.ok(bookService.update(bookId, bookVO));
     }
 
+    @DeleteMapping(value = "/{bookId}",
+            consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML },
+            produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML })
+    @Operation(summary = "Delete a Book represented by ID",
+            description = "Delete a Book represented by ID by passing the JSON," +
+                    " XML or YAML object in the request body"
+            , tags = { "Book" }
+            , responses = {
+            @ApiResponse(responseCode = "204", description = "No Content", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error" , content = @Content)
+    })
+    public ResponseEntity<Void> delete(@PathVariable Long bookId) {
+        bookService.delete(bookId);
+        return ResponseEntity.noContent().build();
+    }
+
 }

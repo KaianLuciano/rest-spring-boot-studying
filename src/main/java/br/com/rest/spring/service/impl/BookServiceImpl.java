@@ -72,4 +72,12 @@ public class BookServiceImpl implements BookService {
         return bookVO;
     }
 
+    @Override
+    @Transactional
+    public void delete(Long bookId) {
+        log.info("Delete book");
+        BookVO bookToUpdate = DozerMapper.parseObject(bookRepository.findById(bookId)
+                .orElseThrow(() -> new Exceptions.ResourceNotFoundException("Book not found")), BookVO.class);
+        bookRepository.delete(DozerMapper.parseObject(bookToUpdate, Book.class));
+    }
 }
