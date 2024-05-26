@@ -1,9 +1,9 @@
-package br.com.rest.spring.unit.tests.mapper;
+package br.com.rest.spring.unittests.mapper;
 
 import br.com.rest.spring.data.vo.v1.PersonVO;
 import br.com.rest.spring.mapper.DozerMapper;
 import br.com.rest.spring.model.Person;
-import br.com.rest.spring.unit.tests.mapper.mocks.MockPerson;
+import br.com.rest.spring.unittests.mapper.mocks.MockPerson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

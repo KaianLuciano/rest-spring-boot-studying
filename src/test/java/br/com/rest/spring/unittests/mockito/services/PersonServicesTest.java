@@ -1,11 +1,11 @@
-package br.com.rest.spring.unit.tests.mockito.services;
+package br.com.rest.spring.unittests.mockito.services;
 
 import br.com.rest.spring.data.vo.v1.PersonVO;
 import br.com.rest.spring.exception.handler.exception.Exceptions;
 import br.com.rest.spring.model.Person;
 import br.com.rest.spring.repository.PersonRepository;
 import br.com.rest.spring.service.impl.PersonServiceImpl;
-import br.com.rest.spring.unit.tests.mapper.mocks.MockPerson;
+import br.com.rest.spring.unittests.mapper.mocks.MockPerson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

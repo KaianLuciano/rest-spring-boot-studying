@@ -1,11 +1,11 @@
-package br.com.rest.spring.unit.tests.mockito.services;
+package br.com.rest.spring.unittests.mockito.services;
 
 import br.com.rest.spring.data.vo.v1.BookVO;
 import br.com.rest.spring.exception.handler.exception.Exceptions;
 import br.com.rest.spring.model.Book;
 import br.com.rest.spring.repository.BookRepository;
 import br.com.rest.spring.service.impl.BookServiceImpl;
-import br.com.rest.spring.unit.tests.mapper.mocks.MockBook;
+import br.com.rest.spring.unittests.mapper.mocks.MockBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

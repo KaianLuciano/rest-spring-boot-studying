@@ -1,4 +1,4 @@
-package br.com.rest.spring.unit.tests.mapper.mocks;
+package br.com.rest.spring.unittests.mapper.mocks;
 
 import br.com.rest.spring.data.vo.v1.BookVO;
 import br.com.rest.spring.model.Book;
