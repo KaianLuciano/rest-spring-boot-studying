@@ -10,7 +10,6 @@ public class TestConfig {
     public static final String CONTENT_TYPE_JSON = "application/json";
     public static final String CONTENT_TYPE_XML = "application/xml";
     public static final String CONTENT_TYPE_YML = "application/x-yaml";
-
-    public static final String ORIGIN_KAIAN = "https://kaian.com.br";
-    public static final String ORIGIN_LUCIANO = "https://luciano.com.br";
+    public static final String ORIGIN_ERUDIO = "https://erudio.com.br";
+    public static final String ORIGIN_SEMERU = "https://semeru.com.br";
 }
