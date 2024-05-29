@@ -108,4 +108,48 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         assertNotNull(content);
         assertEquals("Invalid CORS request", content);
     }
+
+    @Test
+    @Order(3)
+    public void testFindById() throws IOException {
+        mockPerson();
+
+        specification = new RequestSpecBuilder()
+                .addHeader(TestConfig.HEADER_PARAM_ORIGIN, TestConfig.ORIGIN_ERUDIO)
+                .setBasePath("/api/person/v1")
+                .setPort(TestConfig.SERVER_PORT)
+                .addFilter(new RequestLoggingFilter(LogDetail.ALL))
+                .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
+                .build();
+
+        var content = given().spec(specification)
+                .contentType(TestConfig.CONTENT_TYPE_JSON)
+                .pathParam("id", person.getPersonId())
+                .when()
+                .get("{id}")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+
+        PersonVO persistedPerson = objectMapper.readValue(content, PersonVO.class);
+        person = persistedPerson;
+
+        Assertions.assertNotNull(persistedPerson);
+
+        Assertions.assertNotNull(persistedPerson.getPersonId());
+        Assertions.assertNotNull(persistedPerson.getFirstName());
+        Assertions.assertNotNull(persistedPerson.getLastName());
+        Assertions.assertNotNull(persistedPerson.getAddress());
+        Assertions.assertNotNull(persistedPerson.getGender());
+
+        Assertions.assertTrue(persistedPerson.getPersonId() > 0);
+
+        Assertions.assertEquals("Richard", persistedPerson.getFirstName());
+        Assertions.assertEquals("Stallman", persistedPerson.getLastName());
+        Assertions.assertEquals("New York City, New York, US", persistedPerson.getAddress());
+        Assertions.assertEquals("Male", persistedPerson.getGender());
+    }
+
 }
