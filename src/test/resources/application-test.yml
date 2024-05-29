@@ -1,7 +1,7 @@
 server:
   port: 8888
 cors:
-  originsPatterns: "http://localhost:8080, http://localhost:3000"
+  originPatterns: http://localhost:3000,http://localhost:8080,https://erudio.com.br
 spring:
   jpa:
     database: POSTGRESQL
