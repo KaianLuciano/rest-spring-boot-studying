@@ -96,6 +96,45 @@ public class PersonServiceImpl implements PersonService {
                 .orElseThrow(() -> new Exceptions.ResourceNotFoundException("Person not found")), PersonVO.class);
         personRepository.delete(DozerMapper.parseObject(personToUpdate, Person.class));
     }
+
+    public static void main(String[] args) {
+
+        if(9 < 10) {
+            String g = one(9);
+            System.out.println(g);
+        }
+
+            /*private String tree(int n) {
+
+            }
+
+            private String four(int n) {
+
+            }
+
+            private String five(int n) {
+
+            }*/
+
+
+    }
+    private static String one(int n) {
+        String romanNumber = "";
+        for (int i = 0; i < n; i++) {
+            if(i == 4) {
+                romanNumber = "IV";
+            } else if (i > 4) {
+                romanNumber = addLetra("I", romanNumber);
+            } else {
+                romanNumber += "I";
+            }
+        }
+        return romanNumber;
+    }
+
+    private static String addLetra(String letra1, String letra2) {
+        return letra1 + letra2;
+    }
 }
 
 

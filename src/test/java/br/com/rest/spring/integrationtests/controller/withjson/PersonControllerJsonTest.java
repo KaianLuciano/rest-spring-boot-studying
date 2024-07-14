@@ -1,6 +1,6 @@
 package br.com.rest.spring.integrationtests.controller.withjson;
 
-import br.com.rest.spring.config.TestConfig;
+import br.com.rest.spring.config.TestConfigs;
 import br.com.rest.spring.data.vo.v1.PersonVO;
 import br.com.rest.spring.integrationtests.testcontainers.AbstractIntegrationTest;
 import io.restassured.builder.RequestSpecBuilder;
@@ -18,12 +18,11 @@ import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 
 import static io.restassured.RestAssured.given;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class PersonControllerJsonTest extends AbstractIntegrationTest {
+public class PersonControllerJsonTest extends AbstractIntegrationTest{
 
     private static RequestSpecification specification;
     private static ObjectMapper objectMapper;
@@ -44,15 +43,15 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         mockPerson();
 
         specification = new RequestSpecBuilder()
-                .addHeader(TestConfig.HEADER_PARAM_ORIGIN, TestConfig.ORIGIN_ERUDIO)
+                .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_ERUDIO)
                 .setBasePath("/api/person/v1")
-                .setPort(TestConfig.SERVER_PORT)
+                .setPort(TestConfigs.SERVER_PORT)
                 .addFilter(new RequestLoggingFilter(LogDetail.ALL))
                 .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
                 .build();
 
         var content = given().spec(specification)
-                .contentType(TestConfig.CONTENT_TYPE_JSON)
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
                 .body(person)
                 .when()
                 .post()
@@ -65,20 +64,20 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         PersonVO persistedPerson = objectMapper.readValue(content, PersonVO.class);
         person = persistedPerson;
 
-        Assertions.assertNotNull(persistedPerson);
+        assertNotNull(persistedPerson);
 
-        Assertions.assertNotNull(persistedPerson.getPersonId());
-        Assertions.assertNotNull(persistedPerson.getFirstName());
-        Assertions.assertNotNull(persistedPerson.getLastName());
-        Assertions.assertNotNull(persistedPerson.getAddress());
-        Assertions.assertNotNull(persistedPerson.getGender());
+        assertNotNull(persistedPerson.getPersonId());
+        assertNotNull(persistedPerson.getFirstName());
+        assertNotNull(persistedPerson.getLastName());
+        assertNotNull(persistedPerson.getAddress());
+        assertNotNull(persistedPerson.getGender());
 
-        Assertions.assertTrue(persistedPerson.getPersonId() > 0);
+        assertTrue(persistedPerson.getPersonId() > 0);
 
-        Assertions.assertEquals("Richard", persistedPerson.getFirstName());
-        Assertions.assertEquals("Stallman", persistedPerson.getLastName());
-        Assertions.assertEquals("New York City, New York, US", persistedPerson.getAddress());
-        Assertions.assertEquals("Male", persistedPerson.getGender());
+        assertEquals("Richard", persistedPerson.getFirstName());
+        assertEquals("Stallman", persistedPerson.getLastName());
+        assertEquals("New York City, New York, US", persistedPerson.getAddress());
+        assertEquals("Male", persistedPerson.getGender());
     }
 
     @Test
@@ -87,15 +86,15 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         mockPerson();
 
         specification = new RequestSpecBuilder()
-                .addHeader(TestConfig.HEADER_PARAM_ORIGIN, TestConfig.ORIGIN_SEMERU)
+                .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_SEMERU)
                 .setBasePath("/api/person/v1")
-                .setPort(TestConfig.SERVER_PORT)
+                .setPort(TestConfigs.SERVER_PORT)
                 .addFilter(new RequestLoggingFilter(LogDetail.ALL))
                 .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
                 .build();
 
         var content = given().spec(specification)
-                .contentType(TestConfig.CONTENT_TYPE_JSON)
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
                 .body(person)
                 .when()
                 .post()
@@ -115,15 +114,15 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         mockPerson();
 
         specification = new RequestSpecBuilder()
-                .addHeader(TestConfig.HEADER_PARAM_ORIGIN, TestConfig.ORIGIN_ERUDIO)
+                .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_ERUDIO)
                 .setBasePath("/api/person/v1")
-                .setPort(TestConfig.SERVER_PORT)
+                .setPort(TestConfigs.SERVER_PORT)
                 .addFilter(new RequestLoggingFilter(LogDetail.ALL))
                 .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
                 .build();
 
         var content = given().spec(specification)
-                .contentType(TestConfig.CONTENT_TYPE_JSON)
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
                 .pathParam("id", person.getPersonId())
                 .when()
                 .get("{id}")
@@ -136,20 +135,20 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         PersonVO persistedPerson = objectMapper.readValue(content, PersonVO.class);
         person = persistedPerson;
 
-        Assertions.assertNotNull(persistedPerson);
+        assertNotNull(persistedPerson);
 
-        Assertions.assertNotNull(persistedPerson.getPersonId());
-        Assertions.assertNotNull(persistedPerson.getFirstName());
-        Assertions.assertNotNull(persistedPerson.getLastName());
-        Assertions.assertNotNull(persistedPerson.getAddress());
-        Assertions.assertNotNull(persistedPerson.getGender());
+        assertNotNull(persistedPerson.getPersonId());
+        assertNotNull(persistedPerson.getFirstName());
+        assertNotNull(persistedPerson.getLastName());
+        assertNotNull(persistedPerson.getAddress());
+        assertNotNull(persistedPerson.getGender());
 
-        Assertions.assertTrue(persistedPerson.getPersonId() > 0);
+        assertTrue(persistedPerson.getPersonId() > 0);
 
-        Assertions.assertEquals("Richard", persistedPerson.getFirstName());
-        Assertions.assertEquals("Stallman", persistedPerson.getLastName());
-        Assertions.assertEquals("New York City, New York, US", persistedPerson.getAddress());
-        Assertions.assertEquals("Male", persistedPerson.getGender());
+        assertEquals("Richard", persistedPerson.getFirstName());
+        assertEquals("Stallman", persistedPerson.getLastName());
+        assertEquals("New York City, New York, US", persistedPerson.getAddress());
+        assertEquals("Male", persistedPerson.getGender());
     }
 
 
@@ -159,15 +158,15 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         mockPerson();
 
         specification = new RequestSpecBuilder()
-                .addHeader(TestConfig.HEADER_PARAM_ORIGIN, TestConfig.ORIGIN_SEMERU)
+                .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_SEMERU)
                 .setBasePath("/api/person/v1")
-                .setPort(TestConfig.SERVER_PORT)
+                .setPort(TestConfigs.SERVER_PORT)
                 .addFilter(new RequestLoggingFilter(LogDetail.ALL))
                 .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
                 .build();
 
         var content = given().spec(specification)
-                .contentType(TestConfig.CONTENT_TYPE_JSON)
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
                 .pathParam("id", person.getPersonId())
                 .when()
                 .get("{id}")
@@ -178,8 +177,8 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
                 .asString();
 
 
-        Assertions.assertNotNull(content);
-        Assertions.assertEquals("Invalid CORS request", content);
+        assertNotNull(content);
+        assertEquals("Invalid CORS request", content);
     }
 
     private void mockPerson() {

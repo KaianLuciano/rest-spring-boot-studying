@@ -1,6 +1,6 @@
 package br.com.rest.spring.swagger;
 
-import br.com.rest.spring.config.TestConfig;
+import br.com.rest.spring.config.TestConfigs;
 import br.com.rest.spring.integrationtests.testcontainers.AbstractIntegrationTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ public class SwaggerIntegrationTest extends AbstractIntegrationTest {
         var content =
                 given()
                         .basePath("/swagger-ui/index.html")
-                        .port(TestConfig.SERVER_PORT)
+                        .port(TestConfigs.SERVER_PORT)
                         .when()
                         .get()
                         .then()

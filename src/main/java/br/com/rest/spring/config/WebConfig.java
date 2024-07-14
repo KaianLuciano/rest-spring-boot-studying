@@ -29,7 +29,7 @@ public class WebConfig implements WebMvcConfigurer {
         var allowedOrigins = corsOriginPatterns.split(",");
         registry.addMapping("/**")
                 .allowedMethods("*")
-                .allowedOrigins(allowedOrigins)
+                .allowedOrigins("http://localhost:3000", "http://localhost:8080", "https://erudio.com.br")
                 .allowCredentials(true);
     }
 

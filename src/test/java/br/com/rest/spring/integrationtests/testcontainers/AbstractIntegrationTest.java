@@ -1,5 +1,7 @@
 package br.com.rest.spring.integrationtests.testcontainers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -11,14 +13,18 @@ import org.testcontainers.lifecycle.Startables;
 import java.util.Map;
 import java.util.stream.Stream;
 
+
 @ContextConfiguration(initializers = AbstractIntegrationTest.Initializer.class)
 public class AbstractIntegrationTest {
 
     public static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+        private static final Logger logger = LoggerFactory.getLogger(Initializer.class);
+
         static PostgreSQLContainer<?> postgresql = new PostgreSQLContainer<>("postgres:latest");
 
         private static void startContainers() {
             Startables.deepStart(Stream.of(postgresql)).join();
+            logger.info("PostgreSQL container started: {}", postgresql.isRunning());
         }
 
         private static Map<String, String> createConnectionConfiguration() {
